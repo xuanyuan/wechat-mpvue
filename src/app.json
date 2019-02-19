@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/index/main",
+    "pages/logs/main",
+    "pages/counter/main",
+    "pages/lease/main",
+    "pages/treatment/main",
+    "pages/certificates/main",
+    "pages/publish/main",
+    "pages/mine/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999",
+    "backgroundColor": "#fafafa",
+    "selectedColor": "#1afa29",
+    "borderStyle": "white",
+    "list": [{
+      "text": "首页",
+      "pagePath": "pages/index/main",
+      "iconPath": "static/tabs/home.png",
+      "selectedIconPath": "static/tabs/home-active.png"
+    }, {
+      "text": "发布",
+      "pagePath": "pages/publish/main",
+      "iconPath": "static/tabs/publish.png",
+      "selectedIconPath": "static/tabs/publish-active.png"
+    }, {
+      "text": "我的",
+      "pagePath": "pages/mine/main",
+      "iconPath": "static/tabs/user.png",
+      "selectedIconPath": "static/tabs/user-active.png"
+    }],
+    "position": "bottom"
+  }
+}
