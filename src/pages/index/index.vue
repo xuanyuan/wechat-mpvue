@@ -7,14 +7,6 @@
     </mp-searchbar>
     <mp-grid :gridData="gridData"></mp-grid>
     <div class="weui-cells weui-cells_after-title">
-      <!-- <div class="weui-cell weui-cell_access">
-        <div class="weui-cell__bd">
-          <div class="single-line">单行列表</div>
-          <div class="weui-badge">8</div>
-        </div>
-        <a href="../counter/main"
-           class="weui-cell_ft weui-cell__ft_in-access">详细信息</a>
-      </div> -->
       <div class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">
           <div class="single-line">单行列表</div>
@@ -49,17 +41,17 @@ export default {
         {
           src: '/static/images/chuzu.png',
           name: '出租',
-          url: '../lease/main'
+          url: '../detail/main'
         },
         {
           src: '/static/images/yiliao.png',
           name: '医疗',
-          url: '../treatment/main'
+          url: '../detail/main'
         },
         {
           src: '/static/images/fangchan.png',
           name: '办证',
-          url: '../certificates/main'
+          url: '../detail/main?type=card'
         }
       ]
     }
@@ -74,7 +66,6 @@ export default {
 
   methods: {
     bindViewTap () {
-      console.log('sdssf')
       const url = '@/pages/logs/main'
 
       if (mpvuePlatform === 'wx') {
@@ -84,7 +75,6 @@ export default {
       }
     },
     requesttest () {
-      var self = this
       this.isShowLoading = true
       let fly = new Fly()
       fly.get('https://mp.miaodongshequ.com/')
@@ -94,7 +84,7 @@ export default {
         })
         .catch((err) => {
           this.isShowLoading = false
-          self.list = err
+          console.log(err)
         })
     }
   },

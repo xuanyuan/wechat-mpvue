@@ -3,9 +3,7 @@
     "pages/index/main",
     "pages/logs/main",
     "pages/counter/main",
-    "pages/lease/main",
-    "pages/treatment/main",
-    "pages/certificates/main",
+    "pages/detail/main",
     "pages/publish/main",
     "pages/mine/main"
   ],

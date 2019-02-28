@@ -1,13 +1,13 @@
 <template>
-  <div class="publish-box">
-    <div class="community-box">
+  <div class="form">
+    <div class="form-group">
+      <label for="chooseCommunity">选择小区</label>
       <input type="text"
              disabled
-             width="70%"
+             id="chooseCommunity"
+             placeholder="点击选择小区"
+             @click="showMulLinkageTwoPicker"
              v-model="community" />
-      <mp-button type="default"
-                 size="small"
-                 @click="showMulLinkageTwoPicker">选择小区</mp-button>
     </div>
     <!-- 选择小区 -->
     <mp-picker ref="mpPicker"
@@ -18,11 +18,17 @@
                @onConfirm="onConfirm"
                @onCancel="onCancel"
                :pickerValueArray="pickerValueArray"></mp-picker>
-    <input type="text"
-           maxlength="20"
-           placeholder="输入标题" />
+    <div class="form-group">
+      <label for="">发布标题</label>
+      <input type="text"
+             maxlength="20"
+             v-model="infotitle"
+             placeholder="输入标题" />
+    </div>
+
     <textarea name="发布信息"
               id=""
+              v-model="content"
               rows="10"></textarea>
     <mp-uploader @uploadDelete="uploadDelete"
                  :showTip=true
@@ -41,6 +47,7 @@ import mpPicker from 'mpvue-weui/src/picker'
 import mpSearchbar from 'mpvue-weui/src/searchbar'
 import mpButton from 'mpvue-weui/src/button'
 import mpUploader from 'mpvue-weui/src/uploader'
+import Fly from 'flyio/dist/npm/wx'
 
 export default {
   components: {
@@ -66,42 +73,13 @@ export default {
               value: 102
             }
           ]
-        },
-        {
-          label: '火车票',
-          value: 200,
-          children: [
-            {
-              label: '卧铺',
-              value: 210
-            },
-            {
-              label: '坐票',
-              value: 202
-            },
-            {
-              label: '站票',
-              value: 203
-            }
-          ]
-        },
-        {
-          label: '汽车票',
-          value: 300,
-          children: [
-            {
-              label: '快班',
-              value: 301
-            },
-            {
-              label: '普通',
-              value: 302
-            }
-          ]
         }
       ],
       community: '',
-      pickerValueDefault: [1, 0]
+      infotitle: '',
+      pickerValueDefault: [0, 0],
+      content: '',
+      files: []
     }
   },
   methods: {
@@ -117,32 +95,39 @@ export default {
       this.community = ''
     },
     upLoadSuccess (res) {
-      console.log(res)
+      this.files = res.files
+    },
+    sendPublishInfo () {
+      let fly = new Fly()
+      fly.post('https://mp.miaodongshequ.com/publish', {
+        community: this.community,
+        title: this.infotitle,
+        content: this.content,
+        images: this.files
+      }).then((res) => {
+        console.log(res.data)
+      })
+        .catch((err) => {
+          this.isShowLoading = false
+          console.log(err)
+        })
     }
   }
 }
 </script>
 <style>
-mp-button {
-  display: flex;
-  justify-content: center;
-}
-.publish-box {
+.form {
   margin: 12rpx;
 }
-.community-box {
-  margin: 12rpx;
+.form-group {
+  margin: 12rpx 0 12rpx 24rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 textarea,
 input {
-  border-radius: 5px;
   border: 1rpx solid #ccc;
-}
-community-box input {
-  width: calc(100% - 160rpx);
 }
 .mb {
   width: 60%;
